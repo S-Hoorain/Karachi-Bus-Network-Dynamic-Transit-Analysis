@@ -7,6 +7,11 @@ should only do math/logic and not care about the simulation or CSVs.
 '''
 
 import heapq
+import math
+import random
+
+# Global Index to persist landmark data across search calls
+_apsp_index = None 
 
 def dijkstra_search(graph, start_node, end_node):
     """
@@ -236,12 +241,101 @@ def lpa_star_search(graph, start_node, end_node, previous_search_data=None):
 
     return path, g[end_node], updated_memory
 
-# --- skeleton for rest of the algos---
+class ApproxAPSPIndex:
+    """
+    Search Engine index that stores landmark distance tables.
+    Matches the (1+epsilon) theoretical approach from FOCS 2024.
+    """
+    def __init__(self, graph, num_landmarks=None):
+        self.graph = graph
+        nodes = list(graph.nodes())
+        
+        # Selecting Hubs based on node degree and random sampling
+        if num_landmarks is None:
+            num_landmarks = max(3, math.ceil(math.log2(len(nodes) + 1)) + 2)
+        
+        sorted_nodes = sorted(nodes, key=lambda v: graph.degree(v), reverse=True)
+        self.landmarks = list(set(sorted_nodes[:num_landmarks // 2] + 
+                             random.sample(nodes, num_landmarks // 2)))
+
+        # Pre-calculating forward and reverse distances for all landmarks
+        self.d_fwd = {L: self._dijkstra_core(graph, L) for L in self.landmarks}
+        rev_g = graph.reverse(copy=False)
+        self.d_rev = {L: self._dijkstra_core(rev_g, L) for L in self.landmarks}
+
+    @staticmethod
+    def _dijkstra_core(g, src):
+        dist = {node: float('inf') for node in g.nodes()}
+        dist[src] = 0
+        P_queue = [(0, src)]
+        while P_queue:
+            d, u = heapq.heappop(P_queue)
+            if d > dist[u]: continue
+            for v in g.neighbors(u):
+                w = g[u][v].get('weight', 1.0)
+                if d + w < dist[v]:
+                    dist[v] = d + w
+                    heapq.heappush(P_queue, (dist[v], v))
+        return dist
 
 def approx_apsp_search(graph, start_node, end_node, epsilon=0.1):
     """
-    [TO BE IMPLEMENTED]
     (1+epsilon)-Approximate logic based on the FOCS 2024 paper.
-    Uses planar spanners to return a sub-optimal but faster path.
+    Uses landmark-based pruned search to return sub-optimal fast paths.
     """
-    pass
+    global _apsp_index
+    
+    # Initialize index if it doesn't exist or graph has changed
+    if _apsp_index is None or _apsp_index.graph != graph:
+        _apsp_index = ApproxAPSPIndex(graph)
+
+    idx = _apsp_index
+    if start_node == end_node: return [start_node], 0.0
+
+    # Calculating the Landmark Upper Bound
+    ub = min((idx.d_rev[L].get(start_node, float('inf')) + 
+              idx.d_fwd[L].get(end_node, float('inf'))) for L in idx.landmarks)
+
+    # Fallback to exact search if landmarks provide no connectivity
+    if ub == float('inf'):
+        return dijkstra_search(graph, start_node, end_node)
+
+    # Executing the Pruned Search based on budget (1 + epsilon) * UB
+    budget = (1 + epsilon) * ub
+    dist = {node: float('inf') for node in graph.nodes()}
+    pred = {node: None for node in graph.nodes()}
+    dist[start_node] = 0
+    P_queue = [(0, start_node)]
+
+    while P_queue:
+        d, u = heapq.heappop(P_queue)
+        if d > dist[u]: continue
+        if u == end_node: break
+
+        for v in graph.neighbors(u):
+            w = graph[u][v].get('weight', 1.0)
+            new_dist = d + w
+            
+            # Instant Lower Bound check using pre-computed tables
+            lb = 0
+            for L in idx.landmarks:
+                lb = max(lb, idx.d_rev[L].get(v, 0) - idx.d_rev[L].get(end_node, 0),
+                             idx.d_fwd[L].get(end_node, 0) - idx.d_fwd[L].get(v, 0))
+            
+            # Pruning the search if current distance + lower bound exceeds budget
+            if new_dist + lb > budget: continue
+
+            if new_dist < dist[v]:
+                dist[v] = new_dist
+                pred[v] = u
+                heapq.heappush(P_queue, (new_dist, v))
+
+    # Path reconstruction from end to start
+    if dist[end_node] == float('inf'):
+        return None, float('inf')
+
+    path, cur = [], end_node
+    while cur is not None:
+        path.insert(0, cur)
+        cur = pred[cur]
+    return path, dist[end_node]

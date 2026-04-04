@@ -9,7 +9,7 @@ Includes:
 
 import networkx as nx
 import heapq
-from algorithms import dijkstra_search, lpa_star_search
+from algorithms import dijkstra_search, lpa_star_search, approx_apsp_search
 
 
 # ============================================================================
@@ -307,6 +307,61 @@ def test_lpa_star_incremental():
     print("✓ PASSED")
 
 
+def test_approx_apsp_basic():
+    """Test Approx-APSP on a simple connected graph."""
+    print("\n" + "="*70)
+    print("TEST: Approx-APSP - Basic Connected Graph")
+    print("="*70)
+    
+    G = create_mock_graph_connected()
+    path, distance = approx_apsp_search(G, 1, 4, epsilon=0.2)
+    
+    print(f"Start: 1, End: 4")
+    print(f"Expected distance: 8")
+    print(f"Actual Path:   {path}, Actual Distance: {distance}")
+    
+    assert distance == 8, f"Expected distance 8, got {distance}"
+    assert path == [1, 2, 4]
+    print("✓ PASSED")
+
+
+def test_approx_apsp_disconnected():
+    """Test Approx-APSP with disconnected nodes (should return float('inf'))."""
+    print("\n" + "="*70)
+    print("TEST: Approx-APSP - Disconnected Nodes")
+    print("="*70)
+    
+    G = create_mock_graph_disconnected()
+    path, distance = approx_apsp_search(G, 1, 4, epsilon=0.2)
+    
+    print(f"Graph: Component 1 (1->2->3), Component 2 (4->5)")
+    print(f"Start: 1, End: 4 (in different components)")
+    print(f"Expected: path=None, distance=inf")
+    print(f"Actual:   path={path}, distance={distance}")
+    
+    assert path is None, f"Expected None, got {path}"
+    assert distance == float('inf'), f"Expected inf, got {distance}"
+    print("✓ PASSED")
+
+
+def test_approx_apsp_complex():
+    """Test Approx-APSP on a more complex graph."""
+    print("\n" + "="*70)
+    print("TEST: Approx-APSP - Complex Graph")
+    print("="*70)
+    
+    G = create_mock_graph_complex()
+    path, distance = approx_apsp_search(G, 1, 5, epsilon=0.2)
+    
+    print(f"Start: 1, End: 5")
+    print(f"Expected distance: 3")
+    print(f"Actual Path:   {path}, Actual Distance: {distance}")
+    
+    assert distance == 3, f"Expected distance 3, got {distance}"
+    assert path is not None and path[0] == 1 and path[-1] == 5
+    print("✓ PASSED")
+
+
 # ============================================================================
 # TIME COMPLEXITY ANALYSIS
 # ============================================================================
@@ -516,6 +571,11 @@ def run_all_tests():
     test_lpa_star_same_node()
     test_lpa_star_complex()
     test_lpa_star_incremental()
+    
+    # Approx-APSP tests
+    test_approx_apsp_basic()
+    test_approx_apsp_disconnected()
+    test_approx_apsp_complex()
     
     # Summary
     print("\n" + "#"*70)

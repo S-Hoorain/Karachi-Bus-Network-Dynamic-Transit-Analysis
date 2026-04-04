@@ -24,9 +24,9 @@ A comprehensive simulation framework for analyzing dynamic routing algorithms in
 - **Features**: Maintains search state for efficient re-planning
 
 ### Approximate All-Pairs Shortest Paths (Approx-APSP)
-- **Complexity**: Near-linear time approximations
-- **Use Case**: Large-scale networks requiring fast approximations
-- **Status**: Framework implemented, algorithm to be completed
+- **Complexity**: Landmark-based preprocessing plus pruned query search
+- **Use Case**: Large-scale networks requiring fast approximate paths
+- **Status**: Implemented with landmark precomputations and budgeted search
 
 ## 🏗️ Project Structure
 
@@ -159,5 +159,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Note**: The Approximate APSP algorithm is currently a placeholder. Implementation of the (1+ε)-approximation from FOCS 2024 is planned for future development.</content>
-<parameter name="filePath">c:\Users\GK TECH\Desktop\6th semester\courses\ADA\project\code\README.md
