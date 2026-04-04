@@ -134,6 +134,11 @@ This project implements techniques discussed in the following research:
    Frontiers, 2025  
    *Explores incremental search techniques for transportation networks*
 
+4. **Karachi Bus Network Dataset**  
+   DAR Lab Pakistan  
+   Available at: https://darlab-pakistan.github.io/karachi-bus-network/  
+   *Real-world bus network data used for graph construction and testing*
+
 ## 🤝 Contributing
 
 1. Fork the repository
