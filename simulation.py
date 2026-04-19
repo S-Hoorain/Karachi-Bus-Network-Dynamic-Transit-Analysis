@@ -58,6 +58,50 @@ class KarachiBusSim:
         self._apply_event(event)
         return event
 
+    def generate_targeted_event(self, current_path):
+        """
+        Generate a traffic event that MUST hit the current path.
+        This guarantees that algorithms are forced to reroute.
+        
+        Parameters:
+        - current_path: List of nodes representing the current route
+        
+        Returns:
+        - TrafficEvent object containing the disruption
+        """
+        
+        if not current_path or len(current_path) < 2:
+            # Fallback to random event if path is invalid
+            return self.generate_random_event()
+        
+        # Select a random edge from the current path
+        edge_idx = random.randint(0, len(current_path) - 2)
+        target_edge = (current_path[edge_idx], current_path[edge_idx + 1])
+        
+        # Verify the edge exists in the graph
+        if not self.base_graph.has_edge(target_edge[0], target_edge[1]):
+            return self.generate_random_event()
+        
+        # Randomly choose between closure or severe congestion
+        event_type = random.choice(['closure', 'congestion'])
+        
+        if event_type == 'closure':
+            # Make the edge impassable
+            affected_edges = [target_edge]
+            intensity = float('inf')
+            duration = random.randint(60, 180)
+        else:
+            # Severe congestion - high multiplier
+            affected_edges = [target_edge]
+            intensity = random.uniform(4.0, 6.0)
+            duration = random.randint(30, 90)
+        
+        event = TrafficEvent(event_type, affected_edges, intensity, duration)
+        self.active_events.append(event)
+        self._apply_event(event)
+        
+        return event
+
     def _apply_event(self, event):
         # Updating the graph weights based on the event intensity.
         for u, v in event.affected_edges:

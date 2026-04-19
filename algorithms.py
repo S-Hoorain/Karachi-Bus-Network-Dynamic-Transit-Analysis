@@ -285,6 +285,16 @@ def approx_apsp_search(graph, start_node, end_node, epsilon=0.1):
     """
     global _apsp_index
     
+    # Check if graph has active events - if so, fall back to exact Dijkstra
+    # since landmark distances are invalid when weights have changed
+    has_active_events = any(
+        graph[u][v].get('event_active', False) 
+        for u, v in graph.edges()
+    )
+    
+    if has_active_events:
+        return dijkstra_search(graph, start_node, end_node)
+
     # Initialize index if it doesn't exist or graph has changed
     if _apsp_index is None or _apsp_index.graph != graph:
         _apsp_index = ApproxAPSPIndex(graph)
@@ -317,10 +327,14 @@ def approx_apsp_search(graph, start_node, end_node, epsilon=0.1):
             new_dist = d + w
             
             # Instant Lower Bound check using pre-computed tables
+            # LB(v, end_node) = max(0, max over landmarks L of (d_rev[L][v] - d_rev[L][end_node]))
             lb = 0
             for L in idx.landmarks:
-                lb = max(lb, idx.d_rev[L].get(v, 0) - idx.d_rev[L].get(end_node, 0),
-                             idx.d_fwd[L].get(end_node, 0) - idx.d_fwd[L].get(v, 0))
+                rev_dist_v = idx.d_rev[L].get(v, float('inf'))
+                rev_dist_end = idx.d_rev[L].get(end_node, float('inf'))
+                if rev_dist_v != float('inf') and rev_dist_end != float('inf'):
+                    lb = max(lb, rev_dist_v - rev_dist_end)
+            lb = max(0, lb)  # Lower bound cannot be negative
             
             # Pruning the search if current distance + lower bound exceeds budget
             if new_dist + lb > budget: continue

@@ -2,7 +2,7 @@
 
 A comprehensive simulation framework for analyzing dynamic routing algorithms in urban transportation networks, specifically designed for the Karachi bus network. This project implements and compares multiple shortest path algorithms under realistic traffic conditions including congestion, accidents, and road closures.
 
-## 🚀 Features
+## Features
 
 - **Graph Construction**: Builds directed graphs from real Karachi bus network data
 - **Dynamic Event Simulation**: Models traffic disruptions (congestion, accidents, closures)
@@ -15,7 +15,7 @@ A comprehensive simulation framework for analyzing dynamic routing algorithms in
 - **Performance Analysis**: Built-in statistical analysis with visualization charts
 - **Route Optimization**: Identifies bottleneck routes for maximum testing impact
 
-## 📊 Algorithms Implemented
+## Algorithms Implemented
 
 ### Dijkstra's Algorithm
 - **Complexity**: O(E log V) with binary heap
@@ -32,7 +32,7 @@ A comprehensive simulation framework for analyzing dynamic routing algorithms in
 - **Use Case**: Large-scale networks requiring fast approximate paths
 - **Features**: (1+ε)-approximation with dynamic event detection and fallback to exact search
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 karachi-bus-network-analysis/
@@ -59,7 +59,7 @@ karachi-bus-network-analysis/
 └── README.md
 ```
 
-## 🔧 Installation
+## Installation
 
 ### Prerequisites
 - Python 3.8+
@@ -84,7 +84,7 @@ source .venv/bin/activate
 pip install networkx pandas numpy matplotlib
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Running the Complete Analysis Suite
 ```bash
@@ -134,15 +134,15 @@ Modify configuration in the respective files:
 - `latency_comparison.png` - Performance visualization chart
 - `graphml_exports/` - Gephi-compatible visualization files
 
-## 📈 Sample Output
+## Sample Output
 
 ```
-Building Karachi Bus Network for GraphML export...
+Building Karachi Bus Network for GraphML export
 Graph Construction Complete!
 Total Stops (Nodes): 572
 Total Routes (Edges): 1140
 
-✓ Base graph exported to: graphml_exports/karachi_bus_network_base.graphml
+ Base graph exported to: graphml_exports/karachi_bus_network_base.graphml
 
 ROUTE 1/4: korangi_no_1 → sector_no_7-d
 
@@ -155,7 +155,7 @@ Dynamic LPA*: 51.29 km in 0.093 ms
 Approx-APSP: 58.68 km in 2.771 ms
 Dynamic Comparison: LPA* took 0.093ms | Approx-APSP Stretch: 1.00x
 
-✓ GraphML exported: graph_korangi_no_1_to_sector_no_7-d_1_blocked.graphml
+ GraphML exported: graph_korangi_no_1_to_sector_no_7-d_1_blocked.graphml
 
 SCENARIO 2/8: RECOVERY PHASE
 Traffic cleared! Measuring algorithm recovery speed
@@ -164,9 +164,9 @@ Dynamic LPA*: 57.43 km in 0.178 ms
 Approx-APSP: 57.43 km in 4.795 ms
 Dynamic Comparison: LPA* took 0.178ms | Approx-APSP Stretch: 1.00x
 
-✓ GraphML exported: graph_korangi_no_1_to_sector_no_7-d_1_recovered.graphml
+ GraphML exported: graph_korangi_no_1_to_sector_no_7-d_1_recovered.graphml
 
-[... additional experiments ...]
+[ additional experiments ]
 
 STRESS TEST RESULTS ANALYSIS - ACADEMIC PAPER FORMAT
 Loading results from stress_test_results.csv
@@ -184,7 +184,7 @@ STRETCH FACTOR STATISTICS (Approx-APSP vs Dijkstra)
   95th Percentile Factor: 1.156
   Sample Size: 1247
 
-✓ Latency comparison chart saved to: latency_comparison.png
+ Latency comparison chart saved to: latency_comparison.png
 
 ANALYSIS COMPLETE
 ```
@@ -278,9 +278,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **DAR Lab Pakistan** for dataset curation and maintenance
 - **Research Community** for foundational algorithm development
 - **Open-Source Ecosystem** for NetworkX, Pandas, NumPy, and Matplotlib
-- **Academic Advisors** for guidance on algorithm implementation and validation
 
 ---
 
-*Built for the Analysis of Dynamic Algorithms course - Spring 2025*
+*Built for the Algorithm Design Analysis course - Spring 2026*
 
