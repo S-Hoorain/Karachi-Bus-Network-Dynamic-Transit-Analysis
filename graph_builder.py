@@ -19,13 +19,23 @@ def build_karachi_bus_graph(nodes_path, edges_path):
     # 1) Load Data
     nodes_df = pd.read_csv(nodes_path)
     edges_df = pd.read_csv(edges_path)
+
+    # Convert coordinate columns to numeric floats before graph construction
+    nodes_df['latit'] = pd.to_numeric(nodes_df['latit'], errors='coerce')
+    nodes_df['long'] = pd.to_numeric(nodes_df['long'], errors='coerce')
     
     # Initialize Directed Graph
     G = nx.DiGraph()
 
     # 2) Add Nodes with Metadata (Lat/Lon)
+    nodes_with_attrs = []
     for _, row in nodes_df.iterrows():
-        G.add_node(row['node'], pos=(row['latit'], row['long']))
+        lat = row['latit']
+        lon = row['long']
+        if pd.isna(lat) or pd.isna(lon):
+            continue
+        nodes_with_attrs.append((row['node'], {'pos': (float(lat), float(lon))}))
+    G.add_nodes_from(nodes_with_attrs)
 
     # 3) Add Edges with Weights
     # We calculate distance as the initial weight (baseline travel time)

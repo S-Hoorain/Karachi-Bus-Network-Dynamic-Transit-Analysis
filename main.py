@@ -121,8 +121,12 @@ def export_base_graph_to_graphml(graph, filename="base_graph.graphml"):
             if 'pos' in G.nodes[node]:
                 pos = G.nodes[node]['pos']
                 if isinstance(pos, tuple) and len(pos) == 2:
-                    G.nodes[node]['latitude'] = str(pos[0])
-                    G.nodes[node]['longitude'] = str(pos[1])
+                    try:
+                        G.nodes[node]['latitude'] = float(pos[0])
+                        G.nodes[node]['longitude'] = float(pos[1])
+                    except (TypeError, ValueError):
+                        G.nodes[node]['latitude'] = pos[0]
+                        G.nodes[node]['longitude'] = pos[1]
                 del G.nodes[node]['pos']
             
             # Ensure all attributes are GraphML-compatible (strings, numbers, booleans)
@@ -143,8 +147,8 @@ def export_base_graph_to_graphml(graph, filename="base_graph.graphml"):
         
         filepath = os.path.join(graphml_dir, filename)
         
-        # Export to GraphML
-        nx.write_graphml(G, filepath)
+        # Export to GraphML, inferring numeric attribute types
+        nx.write_graphml(G, filepath, infer_numeric_types=True)
         print(f" Base graph exported to: {filepath}")
         
     except Exception as e:
@@ -169,10 +173,14 @@ def export_graph_to_graphml(graph, event, path_dijkstra, path_dijkstra_new, path
             if 'pos' in G.nodes[node]:
                 pos = G.nodes[node]['pos']
                 if isinstance(pos, tuple) and len(pos) == 2:
-                    G.nodes[node]['latitude'] = str(pos[0])
-                    G.nodes[node]['longitude'] = str(pos[1])
+                    try:
+                        G.nodes[node]['latitude'] = float(pos[0])
+                        G.nodes[node]['longitude'] = float(pos[1])
+                    except (TypeError, ValueError):
+                        G.nodes[node]['latitude'] = pos[0]
+                        G.nodes[node]['longitude'] = pos[1]
                 del G.nodes[node]['pos']
-        
+
         # Collect all nodes that are part of any path
         path_nodes = set()
         if path_dijkstra:
@@ -218,8 +226,8 @@ def export_graph_to_graphml(graph, event, path_dijkstra, path_dijkstra_new, path
         filename = f"graph_{start_node}_to_{end_node}_{safe_exp_id}.graphml"
         filepath = os.path.join(graphml_dir, filename)
         
-        # Export to GraphML
-        nx.write_graphml(G, filepath)
+        # Export to GraphML, inferring numeric attribute types
+        nx.write_graphml(G, filepath, infer_numeric_types=True)
         print(f" GraphML exported: {filepath}")
         
     except Exception as e:
