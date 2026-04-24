@@ -755,27 +755,24 @@ def main():
     export_base_graph_to_graphml(base_graph, "karachi_bus_network_base.graphml")
     print()
 
-    run_baseline_experiments(base_graph)
-    run_stress_test(base_graph)
-    analyze_results()
-    """while True:
+    while True:
         choice = show_menu()
-        
-        if choice == "1":
-            run_baseline_experiments()
-        elif choice == "2":
-            run_stress_test()
-        elif choice == "3":
-            analyze_results()
-        elif choice == "4":
-            run_baseline_experiments()
-            run_stress_test()
-            analyze_results()
-        elif choice == "0":
-            print("\nExiting")
+        if choice == '0':
+            print("Exiting.")
             break
+        elif choice == '1':
+            run_baseline_experiments(base_graph)
+        elif choice == '2':
+            run_stress_test(base_graph)
+        elif choice == '3':
+            analyze_results()
+        elif choice == '4':
+            run_baseline_experiments(base_graph)
+            run_stress_test(base_graph)
+            analyze_results()
         else:
-            print("Invalid choice. Please try again.")"""
+            print("Invalid choice. Please enter 0-4.")
+
 
 if __name__ == "__main__":
     main()

@@ -62,21 +62,18 @@ def build_karachi_bus_graph(nodes_path, edges_path):
 
     return G
 
-# Execution
-nodes_file = 'karachi_bus_network_node_data.csv'
-edges_file = 'karachi_bus_network_edge_list.csv'
+if __name__ == "__main__":
+    nodes_file = 'karachi_bus_network_node_data.csv'
+    edges_file = 'karachi_bus_network_edge_list.csv'
 
-karachi_graph = build_karachi_bus_graph(nodes_file, edges_file)
+    karachi_graph = build_karachi_bus_graph(nodes_file, edges_file)
+    print(f"Graph Construction Complete!")
+    print(f"Total Stops (Nodes): {karachi_graph.number_of_nodes()}")
+    print(f"Total Routes (Edges): {karachi_graph.number_of_edges()}")
 
-# Verification of Output
-print(f"Graph Construction Complete!")
-print(f"Total Stops (Nodes): {karachi_graph.number_of_nodes()}")
-print(f"Total Routes (Edges): {karachi_graph.number_of_edges()}")
-
-# Checking neighbors of a specific stop to test
-sample_stop = "quaidabad"
-if karachi_graph.has_node(sample_stop):
-    print(f"\nRoutes leaving {sample_stop}:")
-    for neighbor in karachi_graph.neighbors(sample_stop):
-        edge_data = karachi_graph.get_edge_data(sample_stop, neighbor)
-        print(f" -> {neighbor} via {edge_data['bus_name']} (Dist: {edge_data['weight']:.2f} km)")
+    sample_stop = "quaidabad"
+    if karachi_graph.has_node(sample_stop):
+        print(f"\nRoutes leaving {sample_stop}:")
+        for neighbor in karachi_graph.neighbors(sample_stop):
+            edge_data = karachi_graph.get_edge_data(sample_stop, neighbor)
+            print(f" -> {neighbor} via {edge_data['bus_name']} (Dist: {edge_data['weight']:.2f} km)")
