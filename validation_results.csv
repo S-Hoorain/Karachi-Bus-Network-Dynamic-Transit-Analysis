@@ -1,0 +1,21 @@
+test_case,start,end,edge,dijkstra_before,dijkstra_after,dijkstra_changed,lpa_before,lpa_after,lpa_changed,approx_before,approx_after,approx_changed
+1,korangi_no_1,sector_no_7-d,"('two_minutes_chowrangi', '4-j_bus_stop')",51.286957959418416,inf,True,51.286957959418416,inf,True,51.286957959418416,inf,True
+2,korangi_no_1,sector_no_7-d,"('4-j_bus_stop', 'khwaja_ajmeri_nagri')",51.286957959418416,inf,True,51.286957959418416,inf,True,51.286957959418416,inf,True
+3,korangi_no_1,sector_no_7-d,"('khwaja_ajmeri_nagri', 'sector_no_7-d')",51.286957959418416,inf,True,51.286957959418416,inf,True,51.286957959418416,inf,True
+4,korangi_no_1,society_hospital,"('liaquatabad_no_10', 'society_hospital')",20.335769372685007,inf,True,20.335769372685007,inf,True,20.335769372685007,inf,True
+5,korangi_no_1,naurus_chowrangi,"('habib_bank', 'naurus_chowrangi')",26.800901403535125,inf,True,26.800901403535125,inf,True,26.800901403535125,inf,True
+6,korangi_no_3,orangi_town,"('hub_river_road', 'bukhramandi')",88.62943530114308,inf,True,88.62943530114308,inf,True,88.62943530114308,inf,True
+7,korangi_no_3,orangi_town,"('bukhramandi', 'afridi_chowk')",88.62943530114308,inf,True,88.62943530114308,inf,True,88.62943530114308,inf,True
+8,korangi_no_3,orangi_town,"('afridi_chowk', 'jamia_mehnodia')",88.62943530114308,inf,True,88.62943530114308,inf,True,88.62943530114308,inf,True
+9,korangi_no_3,orangi_town,"('jamia_mehnodia', 'orangi_town')",88.62943530114308,inf,True,88.62943530114308,inf,True,88.62943530114308,inf,True
+10,korangi_no_3,bukhramandi,"('hub_river_road', 'bukhramandi')",39.43608501915426,inf,True,39.43608501915426,inf,True,39.43608501915426,inf,True
+11,korangi_no_3,naval_colony,"('shershah', 'baldia_town')",28.841927443630254,inf,True,28.841927443630254,inf,True,28.841927443630254,inf,True
+12,korangi_no_3,naval_colony,"('baldia_town', 'baldia_swat_colony')",28.841927443630254,inf,True,28.841927443630254,inf,True,28.841927443630254,inf,True
+13,korangi_no_3,naval_colony,"('baldia_swat_colony', 'moach_goth')",28.841927443630254,inf,True,28.841927443630254,inf,True,28.841927443630254,inf,True
+14,korangi_no_3,naval_colony,"('moach_goth', 'naval_colony')",28.841927443630254,inf,True,28.841927443630254,inf,True,28.841927443630254,inf,True
+15,korangi_no_3,mira_naka,"('shershah', 'mira_naka')",18.61850532643939,inf,True,18.61850532643939,inf,True,18.61850532643939,inf,True
+16,orangi_town,gulshan_farooq,"('qalandari_chowk', 'gulshan_farooq')",22.10576495256867,inf,True,22.10576495256867,inf,True,22.10576495256867,inf,True
+17,orangi_town,karella_mour,"('surjani_town', 'naiabadi')",65.05092158560701,inf,True,65.05092158560701,inf,True,65.05092158560701,inf,True
+18,orangi_town,karella_mour,"('naiabadi', 'karella_mour')",65.05092158560701,inf,True,65.05092158560701,inf,True,65.05092158560701,inf,True
+19,orangi_town,naiabadi,"('surjani_town', 'naiabadi')",52.22042479487702,inf,True,52.22042479487702,inf,True,52.22042479487702,inf,True
+20,orangi_town,godhra,"('power_house', 'godhra')",19.41209549376525,inf,True,19.41209549376525,inf,True,19.41209549376525,inf,True

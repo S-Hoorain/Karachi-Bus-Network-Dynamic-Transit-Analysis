@@ -60,7 +60,7 @@ class KarachiBusSim:
 
     def generate_targeted_event(self, current_path):
         """
-        Generate a traffic event that MUST hit the current path.
+        Generate a traffic event that hits the current path.
         This guarantees that algorithms are forced to reroute.
         
         Parameters:

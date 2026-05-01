@@ -755,7 +755,11 @@ def main():
     export_base_graph_to_graphml(base_graph, "karachi_bus_network_base.graphml")
     print()
 
-    while True:
+    run_baseline_experiments(base_graph)
+    run_stress_test(base_graph)
+    analyze_results()
+
+    """while True:
         choice = show_menu()
         if choice == '0':
             print("Exiting.")
@@ -771,7 +775,7 @@ def main():
             run_stress_test(base_graph)
             analyze_results()
         else:
-            print("Invalid choice. Please enter 0-4.")
+            print("Invalid choice. Please enter 0-4.")"""
 
 
 if __name__ == "__main__":

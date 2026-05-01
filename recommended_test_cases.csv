@@ -1,0 +1,21 @@
+start,end,edge_to_close,cost_increase,cost_increase_pct,original_path_length,new_path_length
+korangi_no_1,sector_no_7-d,"('two_minutes_chowrangi', '4-j_bus_stop')",inf,inf,16,inf
+korangi_no_1,sector_no_7-d,"('4-j_bus_stop', 'khwaja_ajmeri_nagri')",inf,inf,16,inf
+korangi_no_1,sector_no_7-d,"('khwaja_ajmeri_nagri', 'sector_no_7-d')",inf,inf,16,inf
+korangi_no_1,society_hospital,"('liaquatabad_no_10', 'society_hospital')",inf,inf,9,inf
+korangi_no_1,naurus_chowrangi,"('habib_bank', 'naurus_chowrangi')",inf,inf,10,inf
+korangi_no_3,orangi_town,"('hub_river_road', 'bukhramandi')",inf,inf,21,inf
+korangi_no_3,orangi_town,"('bukhramandi', 'afridi_chowk')",inf,inf,21,inf
+korangi_no_3,orangi_town,"('afridi_chowk', 'jamia_mehnodia')",inf,inf,21,inf
+korangi_no_3,orangi_town,"('jamia_mehnodia', 'orangi_town')",inf,inf,21,inf
+korangi_no_3,bukhramandi,"('hub_river_road', 'bukhramandi')",inf,inf,18,inf
+korangi_no_3,naval_colony,"('shershah', 'baldia_town')",inf,inf,20,inf
+korangi_no_3,naval_colony,"('baldia_town', 'baldia_swat_colony')",inf,inf,20,inf
+korangi_no_3,naval_colony,"('baldia_swat_colony', 'moach_goth')",inf,inf,20,inf
+korangi_no_3,naval_colony,"('moach_goth', 'naval_colony')",inf,inf,20,inf
+korangi_no_3,mira_naka,"('shershah', 'mira_naka')",inf,inf,17,inf
+orangi_town,gulshan_farooq,"('qalandari_chowk', 'gulshan_farooq')",inf,inf,14,inf
+orangi_town,karella_mour,"('surjani_town', 'naiabadi')",inf,inf,15,inf
+orangi_town,karella_mour,"('naiabadi', 'karella_mour')",inf,inf,15,inf
+orangi_town,naiabadi,"('surjani_town', 'naiabadi')",inf,inf,14,inf
+orangi_town,godhra,"('power_house', 'godhra')",inf,inf,11,inf
